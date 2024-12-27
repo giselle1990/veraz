@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio Jurídico - Salí del VERAZ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #001f3f;
+            --secondary-blue: #003366;
+            --accent-blue: #0066cc;
+            --dark-blue: #000c1a;
+            --light-blue: #0099ff;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--primary-blue);
+            margin: 0;
+            padding: 0;
+            color: var(--white);
+        }
+
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--dark-blue), var(--primary-blue));
+            z-index: -1;
+            animation: gradientShift 10s ease infinite;
+        }
+
+        .navbar {
+            background-color: rgba(0, 51, 102, 0.9);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar ul li {
+            margin: 0 15px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .navbar ul li a:hover {
+            color: var(--light-blue);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            margin: 40px auto;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 800px;
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--light-blue);
+        }
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .description {
+            font-size: 16px;
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            margin-top: 20px;
+            background-color: var(--accent-blue);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background-color: var(--light-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 153, 255, 0.4);
+        }
+
+        .image-container {
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            background-color: var(--secondary-blue);
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            font-size: 18px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
+
+        #testimonial-carousel {
+            margin-top: 30px;
+        }
+
+        .testimonial {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .testimonial.active {
+            display: block;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @media (max-width: 600px) {
+            .section {
+                padding: 20px;
+                margin: 20px 10px;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .navbar ul li {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="{% url 'index' %}">Inicio</a></li>
+            <li><a href="{% url 'veraz' %}">Veraz</a></li>
+            <li><a href="{% url 'historial' %}">Pedí tu Historial Completo</a></li>
+            <li><a href="{% url 'quienes_somos' %}">Quiénes Somos</a></li>
+        </ul>
+    </nav>
+
+    <section class="section">
+        <i class="fas fa-balance-scale icon"></i>
+        <h3 class="title">¿Por qué confiar en nosotros?</h3>
+        <p class="description">
+            A diferencia de otros prestadores de este servicio, tenemos una oficina física en 
+            <b>Sucre 602, Morón, Buenos Aires,</b> dónde podés acercarte de lunes a viernes de 9 a 17hs. 
+            y siempre alguien podrá responder tus consultas o reclamos.
+        </p>
+        <div class="image-container">
+            <img src="{% static 'fondo.jpg' %}" alt="Nuestra oficina" onerror="this.parentNode.innerHTML='Imagen de nuestra oficina'">
+        </div>
+        <a class="button" href="https://www.google.com/maps?q=Sucre+602,+Morón,+Buenos+Aires" target="_blank">Ver ubicación</a>
+    </section>
+
+    <section class="section">
+        <i class="fas fa-gavel icon"></i>
+        <h3 class="title">¿Cuál es nuestra trayectoria?</h3>
+        <p class="description">
+            Nuestros <b>quince años de trayectoria</b> nos han convertido en el Estudio Jurídico Líder en el país en nuestra materia. Como resultado, 
+            <b>el Dr. Germán Navas ha sido entrevistado en grandes medios de comunicación</b> tales como Canal 9, Canal 26, Crónica TV, Radio Belgrano, 
+            Radio del Plata, Diario el Cronista, Radio Continental, Radio 10, Diario Acción Legal, y Nuestras Voces.
+            <br><br>Durante el 2022, el Dr. Navas fue consultado como especialista en el anteproyecto a la reforma de Ley de Protección de Datos Personales, 
+            la ley que regula quién puede salir del Veraz y quién no.
+        </p>
+        <div class="image-container">
+            <img src="{% static 'logo.png' %}" alt="Dr. Navas en entrevista" onerror="this.parentNode.innerHTML='Imagen del Dr. Navas en entrevista'">
+        </div>
+    </section>
+
+    <section class="section">
+        <i class="fas fa-comments icon"></i>
+        <h3 class="title">¿Qué dicen nuestros clientes?</h3>
+        <p class="description">
+            Siempre compartimos los mensajes de nuestros clientes. Usamos las mismas redes sociales hace años y nuestros clientes suelen dejar reseñas de nuestro servicio.
+            <br><br>En Facebook tenemos una calificación de 4.5 estrellas siendo el máximo de 5 estrellas.
+        </p>
+        <div id="testimonial-carousel">
+            <div class="testimonial active">
+                <p>"Excelente servicio. Resolvieron mi problema con el Veraz en tiempo récord." - María L.</p>
+            </div>
+            <div class="testimonial">
+                <p>"Profesionales muy competentes. Altamente recomendados." - Juan P.</p>
+            </div>
+            <div class="testimonial">
+                <p>"Gracias al Dr. Navas pude resolver mi situación financiera. Eternamente agradecido." - Carlos M.</p>
+            </div>
+        </div>
+        <a class="button" href="https://www.facebook.com/giselleabogadauba/" target="_blank">Ver más opiniones</a>
+    </section>
+
+    <script>
+        // Testimonial Carousel
+        const testimonials = document.querySelectorAll('.testimonial');
+        let currentTestimonial = 0;
+
+        function showNextTestimonial() {
+            testimonials[currentTestimonial].classList.remove('active');
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            testimonials[currentTestimonial].classList.add('active');
+        }
+
+        setInterval(showNextTestimonial, 5000);
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

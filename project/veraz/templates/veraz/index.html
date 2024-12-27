@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salí del VERAZ</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Animated background -->
+    <div class="animated-bg"></div>
+
+    <!-- Top spacing area with floating elements -->
+    <div class="top-space">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="#" class="nav-link">Inicio</a></li>
+            <li><a href="{% url 'veraz' %}" class="nav-link">Puedo salir del Veraz?</a></li>
+            <li><a href="{% url 'historial' %}" class="nav-link">Historial completo</a></li>
+            <li><a href="{% url 'quienes_somos' %}" class="nav-link">Quiénes Somos</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="title-section">
+            <h1 class="main-title">Salí del VERAZ</h1>
+            <p class="subtitle">Tu camino hacia la libertad financiera</p>
+            <div class="title-decoration"></div>
+        </div>
+
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="message">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="consultation-section">
+            <h2>Consulta tu estado financiero</h2>
+            <p class="section-description">Conocé tu situación actual en el sistema financiero</p>
+            
+            <form id="consultarEstadoForm" method="post" action="{% url 'consultar_estado' %}" class="animated-form">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" id="cuil" name="cuil" placeholder="Ingrese su CUIL" required minlength="11" maxlength="11">
+                    <div class="input-effect"></div>
+                </div>
+                <button type="submit" class="glow-button">
+                    Conocer mi estado
+                    <span class="button-effect"></span>
+                </button>
+            </form>
+
+            <div id="resultado" class="result-container">
+                <div class="loading-animation" style="display: none">
+                    <div class="spinner"></div>
+                    <p>Consultando información...</p>
+                </div>
+                <div class="result-content"></div>
+            </div>
+        </div>
+
+    
+    </div>
+
+    <script>
+        // Button effect animation
+        document.querySelectorAll('.glow-button').forEach(button => {
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const effect = button.querySelector('.button-effect');
+                effect.style.left = `${e.clientX - rect.left}px`;
+                effect.style.top = `${e.clientY - rect.top}px`;
+                effect.style.opacity = '0.4';
+            });
+
+            button.addEventListener('mouseleave', (e) => {
+                const effect = button.querySelector('.button-effect');
+                effect.style.opacity = '0';
+            });
+        });
+
+        // Animated background
+        const bg = document.querySelector('.animated-bg');
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            bg.style.background = `linear-gradient(
+                ${45 + x * 10}deg, 
+                var(--dark-blue), 
+                var(--primary-blue) ${50 + y * 20}%, 
+                var(--secondary-blue)
+            )`;
+        });
+
+        // Form handling
+        document.getElementById('consultarEstadoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const resultContainer = document.getElementById('resultado');
+            const loadingAnimation = resultContainer.querySelector('.loading-animation');
+            const resultContent = resultContainer.querySelector('.result-content');
+
+            // Mostrar animación de carga
+            loadingAnimation.style.display = 'block';
+            resultContent.innerHTML = '';
+            resultContainer.classList.add('active');
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    // Construir el contenido del resultado
+                    const content = `
+                        <div class="result-header">
+                            <h3 class="result-title">Resultado de la consulta</h3>
+                        </div>
+                        
+                        <div class="info-group">
+                            <div class="info-label">Identificación</div>
+                            <p class="info-value">${data.identificacion}</p>
+                        </div>
+                        
+                        <div class="info-group">
+                            <div class="info-label">Denominación</div>
+                            <p class="info-value">${data.denominacion}</p>
+                        </div>
+
+                        <div class="periodos-section">
+                            ${data.periodos.map(periodo => `
+                                <div class="periodo-card">
+                                    <div class="periodo-header">
+                                        <i class="fas fa-calendar-alt"></i> Periodo ${periodo.periodo}
+                                    </div>
+                                    ${periodo.entidades.map(entidad => `
+                                        <div class="entidad-card">
+                                            <div class="info-label">
+                                                <i class="fas fa-building"></i> ${entidad.entidad}
+                                            </div>
+                                            <div class="entidad-info">
+                                                <div>
+                                                    <div class="info-label">Situación</div>
+                                                    <p class="info-value">${entidad.situacion}</p>
+                                                </div>
+                                                <div>
+                                                    <div class="info-label">Monto</div>
+                                                    <p class="info-value">$${entidad.monto}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+
+                    // Ocultar loading y mostrar resultado
+                    loadingAnimation.style.display = 'none';
+                    resultContent.innerHTML = content;
+                    resultContent.style.animation = 'fadeIn 0.5s ease forwards';
+
+                } else {
+                    const errorData = await response.json();
+                    loadingAnimation.style.display = 'none';
+                    resultContent.innerHTML = `
+                        <div class="error-message">
+                            <i class="fas fa-exclamation-circle"></i>
+                            ${errorData.error || "No se pudo procesar la solicitud."}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                loadingAnimation.style.display = 'none';
+                resultContent.innerHTML = `
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Error de conexión: Por favor, intente nuevamente.
+                    </div>
+                `;
+                console.error('Error en la solicitud:', error);
+            }
+        });
+    </script>
+</body>
+</html>

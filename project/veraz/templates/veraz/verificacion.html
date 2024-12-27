@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación - Salí del VERAZ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #001f3f;
+            --secondary-blue: #003366;
+            --accent-blue: #0066cc;
+            --dark-blue: #000c1a;
+            --light-blue: #0099ff;
+        }
+
+        body {
+            background-color: var(--primary-blue);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: white;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--dark-blue), var(--primary-blue));
+            z-index: -1;
+            animation: gradientShift 10s ease infinite;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section {
+            background: rgba(0, 51, 102, 0.3);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 153, 255, 0.1);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        h1, h2 {
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, var(--light-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 2s infinite;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            color: var(--light-blue);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        label:hover {
+            background-color: rgba(0, 153, 255, 0.1);
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        button {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.4);
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+        }
+
+        button:hover::after {
+            top: -100%;
+            left: -100%;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(0, 153, 255, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(0, 153, 255, 0.8); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    <div class="container">
+        <h1>Verificación</h1>
+        <div class="section">
+            <h2>Seleccione una opción</h2>
+            <form method="post" action="{% url 'veraz' %}">
+                {% csrf_token %}
+                <label>
+                    <input type="radio" name="opcion" value="A">
+                    <span><i class="fas fa-calendar-alt"></i> Opción A: Deuda a 5 años</span>
+                </label>
+                <label>
+                    <input type="radio" name="opcion" value="B">
+                    <span><i class="fas fa-clock"></i> Opción B: Deuda menos de 5 años</span>
+                </label>
+                <label>
+                    <input type="radio" name="opcion" value="C">
+                    <span><i class="fas fa-credit-card"></i> Opción C: Tarjeta a 3 años</span>
+                </label>
+                <label>
+                    <input type="radio" name="opcion" value="D">
+                    <span><i class="fas fa-credit-card"></i> Opción D: Tarjeta menos de 3 años</span>
+                </label>
+                <button type="submit">Enviar <i class="fas fa-arrow-right"></i></button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

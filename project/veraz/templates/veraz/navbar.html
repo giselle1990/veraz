@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        nav {
+            background-color: #ff0000; /* Fondo rojo para el navbar */
+            overflow: hidden;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            float: left;
+        }
+        nav ul li a {
+            display: block;
+            color: #fff; /* Texto blanco */
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: #b30000; /* Cambia a un tono más oscuro al pasar el mouse */
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff; /* Fondo blanco para el contenido */
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+        h1 {
+            color: #ff0000; /* Texto en rojo */
+            text-align: center;
+        }
+        .card {
+            background-color: #ffe6e6; /* Fondo de las cajas de error */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+        .green-text {
+            color: #155724; /* Texto verde oscuro */
+        }
+        .red-text {
+            color: #721c24; /* Texto rojo oscuro */
+        }
+        .action-button {
+            background-color: #ff0000; /* Fondo rojo */
+            color: #fff; /* Texto blanco */
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .action-button:hover {
+            background-color: #b30000; /* Cambia a un tono más oscuro al pasar el mouse */
+        }
+    </style>
+</head>
+<body>
+<nav>
+<ul>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="{% url 'veraz' %}">Veraz</a></li>
+    <li><a href="#bcra">Conoce tu historial completo</a></li> <!-- Enlace al formulario de verificación -->
+</ul>
+</nav>
+</body>
+</html>

@@ -1,0 +1,78 @@
+/* Variables de colores */
+:root {
+    --Principal: #6699CC;
+    --Acento: #DE3C4B;
+    --Blanco: #FFFFFF;
+    --Negro: #000000;
+    --GrisOscuro: #003366;
+    --GrisMedio: #B7B7AF;
+    --GrisClaro: #D9D9D9;
+}
+
+/* Estilos generales */
+body {
+    background-color: var(--GrisClaro);
+    color: var(--Negro);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: var(--Blanco);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Estilos del título */
+h1 {
+    color: var(--Principal);
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+/* Estilos de los recuadros */
+.recuadro-rojo {
+    background-color: var(--Acento);
+    color: var(--Blanco);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.recuadro-rojo svg {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.texto-rojo {
+    font-size: 1em;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+/* Imagen dentro del recuadro */
+.imagen {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+}
+
+/* Enlace en el recuadro */
+.link-whatsapp {
+    color: var(--Blanco);
+    text-decoration: underline;
+}
+
+.link-whatsapp:hover {
+    color: #ffdd00; /* Color de resaltado en hover */
+    text-decoration: none; /* Opcional: quita el subrayado en hover */
+}

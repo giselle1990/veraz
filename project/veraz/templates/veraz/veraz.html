@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario Veraz</title>
+    {% load static %}
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+        }
+        .section {
+            background-color: #D3D3D3;
+            color: #333333;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: black;
+            text-align: center;
+        }
+        .menu {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .menu a {
+            display: block;
+            background-color: #003366;
+            color: #FFFFFF;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .menu a:hover {
+            background-color: #FFA07A;
+            color: #003366;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Formulario Veraz</h1>
+        <h2>Completa tus datos</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            
+        </form>
+
+        <div class="section">
+            <h2>Opciones de Plazos de Tarjetas</h2>
+            <div class="menu">
+                <a href="{% url 'deuda_5_anios' %}">Opción A: 5 años</a>
+                <a href="{% url 'deuda_menos' %}">Opción B: Menos de 5 años</a>
+                <a href="{% url 'tarjeta_3_anios' %}">Opción C: 3 años</a>
+                <a href="{% url 'tarjeta_menos' %}">Opción D: Menos de 3 años</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

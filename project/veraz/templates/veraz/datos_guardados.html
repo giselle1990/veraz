@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos Guardados - Salí del VERAZ</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #001f3f;
+            --secondary-blue: #003366;
+            --accent-blue: #0066cc;
+            --dark-blue: #000c1a;
+            --light-blue: #0099ff;
+            --accent-red: #DE3C4B;
+            --white: #FFFFFF;
+        }
+
+        body {
+            background-color: var(--primary-blue);
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--white);
+        }
+
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--dark-blue), var(--primary-blue));
+            z-index: -1;
+            animation: gradientShift 10s ease infinite;
+        }
+
+        .navbar {
+            background: rgba(0, 51, 102, 0.9);
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--light-blue);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            padding: 40px;
+            background: rgba(0, 51, 102, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            animation: fadeIn 0.5s ease-out;
+            margin: 80px auto 0;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #fff, var(--light-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 2s infinite;
+        }
+
+        .recuadro-rojo {
+            background-color: rgba(222, 60, 75, 0.2);
+            border: 1px solid var(--accent-red);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .recuadro-rojo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(222, 60, 75, 0.3);
+        }
+
+        .texto-rojo {
+            color: var(--white);
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 0;
+            text-align: center;
+        }
+
+        .imagen {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .link-whatsapp {
+            color: #25D366;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .link-whatsapp:hover {
+            color: #128C7E;
+            text-shadow: 0 0 5px rgba(37, 211, 102, 0.5);
+        }
+
+        .whatsapp-icon {
+            margin-right: 5px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(0, 153, 255, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(0, 153, 255, 0.8); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .texto-rojo {
+                font-size: 16px;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-link {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    <nav class="navbar">
+        <ul>
+            <li><a href="{% url 'index' %}" class="nav-link">Inicio</a></li>
+            <li><a href="{% url 'veraz' %}" class="nav-link">Puedo Salir de Veraz?</a></li>
+            <li><a href="{% url 'historial' %}" class="nav-link">Historial completo</a></li>
+            <li><a href="{% url 'quienes_somos' %}" class="nav-link">Quiénes Somos</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Datos guardados exitosamente</h1>
+        <div class="recuadro-rojo">
+            <p class="texto-rojo">¡Gracias por dejar sus datos! En 3 días hábiles se le enviará el historial por WhatsApp.</p>
+        </div>
+        <div class="recuadro-rojo">
+            <img src="{% static 'public/image-2.png' %}" alt="Imagen" class="imagen">
+            <p class="texto-rojo">
+                Envíanos una foto de tu DNI, frente y dorso 
+                <a href="https://wa.me/541167641220" target="_blank" class="link-whatsapp">
+                    <i class="fab fa-whatsapp whatsapp-icon"></i>AQUÍ
+                </a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
